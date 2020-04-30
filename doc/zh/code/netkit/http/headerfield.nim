@@ -306,6 +306,19 @@ proc `[]`*(fields: HeaderFields, name: string): seq[string] {.raises: [KeyError]
   ##   })
   ##   assert fields["Content-Length"][0] == "16"
 
+proc `[]`*(fields: HeaderFields, name: string, i: int): string =
+  ## 返回关键字 ``name`` 对应字段值中的第 ``i`` 个元素。
+  ## 如果此字段中没有 ``name`` ，则会引发异常。
+  ## 
+  ## 例子：
+  ## 
+  ## .. code-block::nim
+  ## 
+  ##   let fields = initHeaderFields({
+  ##     "Content-Length": "16"
+  ##   })
+  ##   assert fields["Content-Length", 0] == "16"
+
 proc `[]=`*(fields: var HeaderFields, name: string, value: seq[string]) = discard
   ## 设置名字为 ``name`` 的字段值。如果字段已经存在，则替换已有的值。
   ## 
