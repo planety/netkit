@@ -420,6 +420,21 @@ proc `[]`*(fields: HeaderFields, name: string): seq[string] {.raises: [KeyError]
   ##   assert fields["Content-Length"][0] == "16"
   Table[string, seq[string]](fields)[name.toLowerAscii()]
 
+proc `[]`*(fields: HeaderFields, name: string, i: int): string =
+  ## Returns the ``i``'th value of the field associated with ``name``. 
+  ##  If ``name`` is not in this fields or the ``i``'th value doesn't exist, an
+  ##  exception is raised. 
+  ## 
+  ## Examples: 
+  ## 
+  ## .. code-block::nim
+  ## 
+  ##   let fields = initHeaderFields({
+  ##     "Content-Length": "16"
+  ##   })
+  ##   assert fields["Content-Length", 0] == "16"
+  fields[name][i]
+
 proc `[]=`*(fields: var HeaderFields, name: string, value: seq[string]) =
   ## Sets ``value`` to the field associated with ``name``. Replaces any existing value.
   ## 
