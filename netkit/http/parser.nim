@@ -152,7 +152,6 @@
 ## 
 ##   See **chunk** module and **metadata** module for more information about terminating chunk and trailers.
 
-import uri
 import strutils
 import netkit/buffer/circular
 import netkit/http/limits
@@ -160,6 +159,7 @@ import netkit/http/exception
 import netkit/http/spec
 import netkit/http/httpmethod
 import netkit/http/version
+import netkit/http/uri
 import netkit/http/status
 import netkit/http/headerfield
 import netkit/http/header
