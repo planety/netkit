@@ -19,12 +19,25 @@
 - [x] 优化 HTTP chunked 解码和编码
 - [x] 添加 HTTP 服务器单元测试，包含多种规则和不规则请求的模拟测试
 - [ ] 添加 HTTP server benchmark tests
+- [ ] 添加 CompactBuffer MarkableCompactBuffer （MarkableBuffer 统一标记缓冲区？） 优化 HTTP Parser -> 大多数 header field 都很小，并且通常是完整的，所以缓冲区很少会留下不完全的 header field part，这样就无需总是对缓冲区左右进行判断 (MarkableCircularBuffer)
+- [ ] 添加 --define:benchgame 标识位，为基准测试跑分添加专门的优化 - 跳过 HTTP Header 解析，代替的是，仅仅保存到内存，直接查找 CRLFCRLF，以提升 CPU 计算时间 
 - [ ] 优化 write(statusCode, header) 和 write(data)，在 benchmark 中影响性能达到 6 倍 --> 
       考虑将 statusCode, header 和第一块数据合并到一个缓冲区发送
 - [ ] 修复 parseSingleRule, parseMultiRule
 - [ ] 4 个线程，1000 个连接，30 秒持续请求的吞吐量测试，以优化 asyncdispatcher 的 io
+- [ ] 创建 selector 分支，posix 环境使用 selector 优化 HTTP IO
 - [ ] response.writeEnd 支持 Connection: keepalive 控制
 - [ ] 添加 HTTP server 多线程支持
 - [ ] 添加 HTTP 客户端和 HTTP 客户端连接池
 - [ ] 修订各源码文件留下的 TODOs
 - [ ] 考虑使用 {.noInit.} 优化已经写的 procs iterators vars lets
+
+2020-05-21
+
+- [ ] 添加 posix-linux epoll selector 支持 (linux-4.1)
+- [ ] 添加 posix-bsd kqueue selector 支持 ? 我好像需要一些 bsd 虚拟环境来测试这些程序 (freebsd-11.0and12.1, openbsd-6.0, netbsd-6.1, drangonflybsd-4.9, macox)
+- [ ] 添加 posix-solaris evport selector 支持 ? 我好像需要一些虚拟环境来测试这些程序 (solaris-11.0)
+- [ ] 添加 windows iocp selector 支持
+- [ ] 考虑 epoll/kqueue/evport/iocp 的多线程并行问题
+- [ ] 考虑 epoll/kqueue/evport/iocp 的描述符分布问题
+- [ ] 考虑 tcp,udp 的扩平台问题

@@ -1,9 +1,3 @@
-#            netkit 
-#        (c) Copyright 2020 Wang Tong
-#
-#    See the file "LICENSE", included in this
-#    distribution, for details about the copyright.
-
 ## This module implements an incremental HTTP parser. This parser supports parsing both request 
 ## messages and response messages. 
 ## 
@@ -172,10 +166,10 @@ type
     currentLineLen: Natural
     currentFieldName: string
     currentFieldCount: Natural
-    state: HttpParseState
+    state*: HttpParseState
     startLineState: StartLineState
     
-  HttpParseState {.pure.} = enum
+  HttpParseState* {.pure.} = enum
     StartLine, FieldName, FieldValue, Body
 
   StartLineState {.pure.} = enum
